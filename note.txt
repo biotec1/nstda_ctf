@@ -1,0 +1,38 @@
+drop table nstda_ctf_ministry CASCADE ; 
+drop table nstda_ctf_regulator CASCADE ;
+drop table nstda_ctf_cer CASCADE ;
+drop table nstda_ctf_cer_nstda_ctf_list_rel CASCADE ;
+drop table nstda_ctf_cer_wizard CASCADE ;
+drop table nstda_ctf_cer_wizard_nstda_ctf_list_rel CASCADE ;
+drop table nstda_ctf_cer_wizard_nstda_ctf_list_test_unit_rel CASCADE ;
+drop table nstda_ctf_grade CASCADE ;
+drop table nstda_ctf_list CASCADE ;
+drop table nstda_ctf_list_test_unit CASCADE ;
+drop table nstda_ctf_list_test_unit_wizard CASCADE ;
+drop table nstda_ctf_regulator_res_users_rel CASCADE ;
+drop table nstda_ctf_syc_sql CASCADE ;
+drop table nstda_ctf_test_unit CASCADE ;
+drop table nstda_ctf_test_unit_res_users_rel CASCADE ;
+
+
+
+
+
+    def action_make_meeting(self, cr, uid, ids, context=None):
+        """ This opens Meeting's calendar view to schedule meeting on current Phonecall
+            @return : Dictionary value for created Meeting view
+        """
+        res = {}
+        phonecall_id = context and context.get('active_id', False) or False
+        if phonecall_id:
+            phonecall = self.pool.get('crm.phonecall').browse(cr, uid, phonecall_id, context)
+            res = self.pool.get('ir.actions.act_window').for_xml_id(cr, uid, 'calendar', 'action_calendar_event', context)
+            res['context'] = {
+                'default_phonecall_id': phonecall.id,
+                'default_partner_id': phonecall.partner_id and phonecall.partner_id.id or False,
+                'default_user_id': uid,
+                'default_email_from': phonecall.email_from,
+                'default_state': 'open',
+                'default_name': phonecall.name,
+            }
+        return res

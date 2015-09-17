@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="view_mstq_certificat_report_graph" model="ir.ui.view">
+            <field name="name">mstq.certificat.report.graph</field>
+            <field name="model">mstq.certificat.report</field>
+            <field name="arch" type="xml">
+                <graph string="Certificat Statistics" type="pivot" stacked="True">
+                    <field name="regulator_id" type="row"/>
+                    <field name="c" type="measure"/>
+                </graph>
+            </field>
+        </record>
+
+        <record id="view_mstq_certificat_report_search" model="ir.ui.view">
+            <field name="name">mstq.certificat.report.search</field>
+            <field name="model">mstq.certificat.report</field>
+            <field name="arch" type="xml">
+                <search string="Certificate Statistics">
+<!--                     <group expand="0" string="Extended Filters..."> -->
+<!--                         <field name="scheduled_date"/> -->
+<!--                     </group> -->
+                    <group expand="1" string="Group By...">
+                        <filter string="Type"
+                            domain="[]" context="{'group_by':'certype_id'}"/>
+                        <filter string="Ministry"
+                            domain="[]" context="{'group_by':'ministry'}"/>
+                        <filter string="Regulator"
+                            domain="[]" context="{'group_by':'regulator_id'}"/>
+
+<!--                         <filter string="State" domain="[]" -->
+<!--                             context="{'group_by':'state'}"/> -->
+<!--                         <filter string="Sent By" domain="[]" -->
+<!--                             context="{'group_by':'email_from'}"/> -->
+<!--                         <separator/> -->
+<!--                         <filter string="Scheduled Month" -->
+<!--                             domain="[]" context="{'group_by':'scheduled_date:month'}"/> -->
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!-- Actions and Menuitems -->
+       <record id="action_nstda_ctf_cer_report" model="ir.actions.act_window">
+           <field name="name">Certificate Analysis</field>
+           <field name="res_model">mstq.certificat.report</field>
+           <field name="view_type">form</field>
+           <field name="view_mode">graph</field>
+           <field name="help">help</field>
+       </record>
+       <record id="action_nstda_ctf_cer_report_graph" model="ir.actions.act_window.view">
+            <field name="view_mode">graph</field>
+            <field name="view_id" ref="view_mstq_certificat_report_graph"/>
+            <field name="act_window_id" ref="action_nstda_ctf_cer_report"/>
+       </record>
+
+       <menuitem name="Certificate" id="menu_nstda_ctf_cer_report" sequence="1"
+            parent="menu_nstda_ctf_rep_main" action="action_nstda_ctf_cer_report"/>
+
+
+
+
+
+
+
+
+        <record id="view_mstq_analytic_report_graph" model="ir.ui.view">
+            <field name="name">mstq.analytic.report.graph</field>
+            <field name="model">mstq.analytic.report</field>
+            <field name="arch" type="xml">
+                <graph string="Certificat Statistics2" type="pivot" stacked="True">
+                    <field name="grade_name" type="row"/>
+                    <field name="c" type="measure"/>
+                </graph>
+            </field>
+        </record>
+
+        <record id="view_mstq_analytic_report_search" model="ir.ui.view">
+            <field name="name">mstq.analytic.report.search</field>
+            <field name="model">mstq.analytic.report</field>
+            <field name="arch" type="xml">
+                <search string="Certificate Statistics">
+                    <group expand="1" string="Group By...">
+                        <filter string="Cer.Standard"
+                            domain="[]" context="{'group_by':'standardcode'}"/>
+                        <filter string="list_name"
+                            domain="[]" context="{'group_by':'list_name'}"/>
+                        <filter string="testunit_name"
+                            domain="[]" context="{'group_by':'testunit_name'}"/>
+                        <filter string="grade_name"
+                            domain="[]" context="{'group_by':'grade_name'}"/>
+
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!-- Actions and Menuitems -->
+       <record id="action_mstq_analytic_report" model="ir.actions.act_window">
+           <field name="name">Certificate Analysis2</field>
+           <field name="res_model">mstq.analytic.report</field>
+           <field name="view_type">form</field>
+           <field name="view_mode">graph</field>
+           <field name="help">help</field>
+       </record>
+       <record id="action_mstq_analytic_report_graph" model="ir.actions.act_window.view">
+            <field name="view_mode">graph</field>
+            <field name="view_id" ref="view_mstq_analytic_report_graph"/>
+            <field name="act_window_id" ref="action_mstq_analytic_report"/>
+       </record>
+
+       <menuitem name="A" id="menu_mstq_analytic_report" sequence="2"
+            parent="menu_nstda_ctf_rep_main" action="action_mstq_analytic_report"/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </data>
+</openerp>

@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<openerp>
+	<data>
+
+		<record model="ir.actions.act_window" id="action_nstda_ctf_regulator">
+			<field name="name">หน่วยงาน</field>
+			<field name="res_model">nstda.ctf.regulator</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+ 			<field name="context">{'search_default_owner':1}</field>
+		</record>
+
+		<record model="ir.actions.act_window" id="action_nstda_ctf_cer">
+			<field name="name">มาตรฐานและผลิตภัณฑ์</field>
+			<field name="res_model">nstda.ctf.cer</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+ 			<field name="context">{'search_default_owner':1}</field>
+		</record>
+
+
+		<record model="ir.actions.act_window" id="action_nstda_ctf_test_unit">
+			<field name="name">หน่วยทดสอบ</field>
+			<field name="res_model">nstda.ctf.test.unit</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="view_id" ref="view_nstda_ctf_test_unti_tree"/>
+			<field name="context">{}</field>
+		</record>
+
+		<record model="ir.actions.act_window" id="action_nstda_ctf_list">
+			<field name="name">รายการทดสอบ</field>
+			<field name="res_model">nstda.ctf.list</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+
+
+		<record model="ir.actions.act_window" id="action_nstda_ctf_list_wizard">
+			<field name="name">รายการทดสอบ</field>
+			<field name="res_model">nstda.ctf.list.wizard</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+
+
+
+<!-- 		<record model="ir.actions.act_window" id="action_nstda_ctf_syc"> -->
+<!-- 			<field name="name">Syc</field> -->
+<!-- 			<field name="res_model">nstda.ctf.syc.sql</field> -->
+<!-- 			<field name="view_type">form</field> -->
+<!-- 			<field name="view_mode">form</field> -->
+<!-- 		</record> -->
+
+
+<!-- 		<record model="ir.ui.view" id="nstda_ctf_logging_view"> -->
+<!-- 			<field name="name">mail.message.tree</field> -->
+<!-- 			<field name="model">mail.message</field> -->
+<!-- 			<field name="arch" type="xml"> -->
+<!-- 				<tree string="Logging" create='false'> -->
+<!-- 					<field name="date" /> -->
+<!-- 					<field name="author_id" /> -->
+<!-- 					<field name="record_name" /> -->
+<!-- 					<field name="body" widget="html" /> -->
+<!-- 				</tree> -->
+<!-- 			</field> -->
+<!-- 		</record> -->
+
+
+		<record model="ir.actions.act_window" id="action_nstda_ctf_logging">
+			<field name="name">Logging</field>
+			<field name="res_model">mail.message</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree</field>
+			<field name="domain">[('model','ilike',('nstda.ctf'))]</field>
+<!-- 			<field name="view_id" ref="nstda_ctf_logging_view" /> -->
+		</record>
+
+
+		<menuitem name="MSTQ" id="menu_ctf" />
+		<menuitem name="หน่วยทดสอบ" id="menu_nstda_ctf_main" parent="menu_ctf" 
+			sequence="1" groups="base.group_nstda_ctf_user" />
+		<menuitem name="Regulator" id="menu_nstda_ctf_regulator_main" parent="menu_ctf" 
+			sequence="2" groups="base.group_nstda_ctf_user" />
+		<menuitem name="Report" id="menu_nstda_ctf_rep_main" parent="menu_ctf" 
+			sequence="3" groups="base.group_nstda_ctf_admin" />
+		<menuitem name="Admin" id="menu_nstda_ctf_admin" parent="menu_ctf" 
+			sequence="4" groups="base.group_nstda_ctf_admin" />
+
+
+		<menuitem name="หน่วยทสอบ" id="menu_nstda_ctf_test_unit"
+			action="action_nstda_ctf_test_unit" parent="menu_nstda_ctf_main"
+			sequence="1" groups="base.group_nstda_ctf_user" />
+
+		<menuitem name="Profile" id="menu_nstda_ctf_regulator"
+			action="action_nstda_ctf_regulator" parent="menu_nstda_ctf_regulator_main"
+			sequence="4" groups="base.group_nstda_ctf_user" />
+
+		<menuitem name="มาตรฐานและผลิตภัณฑ์" id="menu_nstda_ctf_cer"
+			action="action_nstda_ctf_cer" parent="menu_nstda_ctf_regulator_main" sequence="5"
+			groups="base.group_nstda_ctf_user" />
+
+		<menuitem name="รายการทดสอบ" id="menu_nstda_ctf_list" action="action_nstda_ctf_list"
+			parent="menu_nstda_ctf_regulator_main" sequence="6" groups="base.group_nstda_ctf_admin" />
+
+		<menuitem name="Change log" id="menu_nstda_ctf_logging" parent="menu_nstda_ctf_admin"
+			sequence="80" action="action_nstda_ctf_logging" groups="base.group_nstda_ctf_admin" />
+
+<!-- 		<menuitem name="คู่มือระบบ" id="menu_nstda_ctf_man" parent="menu_nstda_ctf_main" -->
+<!-- 			sequence="90" action="action_nstda_ctf_man" groups="base.group_nstda_ctf_user" /> -->
+
+<!-- 		<menuitem name="Syc" id="menu_nstda_ctf_syc" parent="menu_nstda_ctf_main" -->
+<!-- 			sequence="99" action="action_nstda_ctf_syc" groups="base.group_nstda_ctf_admin" /> -->
+
+
+		<menuitem name="+TestUnit User" id="menu_nstda_ctf_testunit_user"
+			action="action_nstda_ctf_test_unit_admin" parent="menu_nstda_ctf_admin"
+			sequence="1" groups="base.group_nstda_ctf_admin" />
+
+
+
+	</data>
+</openerp>

@@ -1,0 +1,502 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<openerp>
+	<data>
+
+		<!--Regulator Form View -->
+		<record model="ir.ui.view" id="view_nstda_ctf_regulator_form">
+			<field name="name">nstda.ctf.regulator.form</field>
+			<field name="model">nstda.ctf.regulator</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="nstda_ctf_regulator_form">
+					<sheet>
+						<group col="4">
+							<field name="regulator" string="ชื่อหน่วยงาน" colspan="4" />
+							<field name="ministry_ids" string="กระทรวง"
+								options="{'no_open':1,'no_create':1, 'no_create_edit':1}" colspan="4" />
+							<field name="address" string="ที่อยู่" colspan="4" />
+
+							<field name="telephone" string="โทรศัพท์"  />
+							<field name="fax" string="โทรสาร"  />
+						</group>
+						<group col="4">
+							<field name="web_site" string="web site"  />
+							<field name="e_mail" string="E-mail"  />
+						</group>
+
+
+						<group col="4">
+							<field name="contact_ids" string="ผู้ติดต่อ" colspan="4" >
+							<tree editable="buttom">
+								<field name="name" />
+								<field name="email" />
+								<field name="tel" />
+							</tree>
+							</field>
+							<field name="res_user" string="User" widget="many2many_tags"
+								groups="base.group_nstda_ctf_admin"/>
+						</group>
+
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<!--Regulator Tree View -->
+		<record model="ir.ui.view" id="view_nstda_ctf_regulator_tree">
+			<field name="name">nstda.ctf.regulator.tree</field>
+			<field name="model">nstda.ctf.regulator</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="nstda_ctf_regulator_tree">
+					<field name="ministry_ids" string="กระทรวง" />
+					<field name="regulator" string="ชื่อหน่วยงาน" />
+					<field name="address" string="ที่อยู่" />
+					<field name="telephone" string="โทรศัพท์" />
+					<field name="web_site" string="web site" />
+				</tree>
+			</field>
+		</record>
+		<!-- Search Regulator View -->
+		<record model="ir.ui.view" id="view_nstda_ctf_regulator_search">
+			<field name="name">nstda.ctf.regulator.search</field>
+			<field name="model">nstda.ctf.regulator</field>
+			<field name="arch" type="xml">
+				<search string="List" create ='false'>
+					<group expand="0" string="Search By...">
+						<field name="regulator" string="ชื่อมาตรฐาน" />
+                        <filter name="owner" string="Owner" domain="[('res_user','in',uid)]" />
+					</group>
+					<newline />
+				</search>
+			</field>
+		</record>
+
+
+
+		<!-- Search Cer View -->
+		<record model="ir.ui.view" id="view_nstda_ctf_cer_search">
+			<field name="name">nstda.ctf.cer.search</field>
+			<field name="model">nstda.ctf.cer</field>
+			<field name="arch" type="xml">
+				<search string="List" create ='false'>
+					<group expand="0" string="Search By...">
+						<field name="standardcode" string="รหัสมาตรฐาน" />
+						<field name="name" string="ชื่อมาตรฐาน" />
+						<field name="regulator_ids" string="Regulator" />
+                        <filter name="owner" string="Owner" domain="[('regulator_ids.res_user','in',uid)]" />
+					</group>
+					<newline />
+				</search>
+			</field>
+		</record>
+		<!-- Cer Tree View -->
+		<record model="ir.ui.view" id="view_nstda_ctf_cer_tree">
+			<field name="name">nstda.ctf.cer.tree</field>
+			<field name="model">nstda.ctf.cer</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="nstda_ctf_cer_tree">
+					<field name="standardcode" />
+					<field name="name" />
+					<field name="equipment" />
+					<field name="certype_id" />
+					<field name="regulator_ids" />
+				</tree>
+			</field>
+		</record>
+
+		<!--Cer Form View -->
+		<record model="ir.ui.view" id="view_nstda_ctf_cer_form">
+			<field name="name">nstda.ctf.cer.form</field>
+			<field name="model">nstda.ctf.cer</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form>
+					<sheet>
+						<group col="4">
+							<field name="standardcode" required="1" />
+							<field name="inter_flag" />
+							<field name="name" colspan="4" required="1" />
+							<field name="regulator_ids" 
+								options="{'create': true ,'create_edit': true,'no_open':true}" colspan="4" />
+							<field name="equipment" colspan="4" />
+							<field name="certype_id" colspan="2" />
+						</group>
+
+						<notebook>
+						<page string="รายการทดสอบ">
+							<field name="cerlist_ids" nolabel="1" />
+						</page>
+						<page string="หน่วยทดสอบ">
+							<field name="ability_ids" nolabel="1" >
+							<tree>
+								<field name="test_unit_id" />
+								<field name="cantest" />
+								<field name="can17025" />
+							</tree>
+							</field>
+						</page>
+						</notebook>
+
+
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+
+
+		<!--CerList Tree View -->
+		<record model="ir.ui.view" id="view_nstda_ctf_cerlist_tree">
+			<field name="name">nstda.ctf.cerlist.tree</field>
+			<field name="model">nstda.ctf.cerlist</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree >
+					<field name="list_id" string="รายการทดสอบ" />
+					<field name="name" string="เกณฑ์" />
+				</tree>
+			</field>
+		</record>
+
+
+<!-- 		<record model="ir.ui.view" id="view_nstda_ctf_cer_noList_form"> -->
+<!-- 			<field name="name">nstda.ctf.cer.form</field> -->
+<!-- 			<field name="model">nstda.ctf.cer</field> -->
+<!-- 			<field name="type">form</field> -->
+<!-- 			<field name="arch" type="xml"> -->
+<!-- 				<form string="nstda_ctf_cer_form"> -->
+<!-- 					<sheet> -->
+<!-- 						<group col="4"> -->
+<!-- 							<field name="standardcode" required="1" /> -->
+<!-- 							<field name="inter_flag" /> -->
+<!-- 							<field name="name" colspan="4" required="1" /> -->
+<!-- 							<field name="regulator_ids"  -->
+<!-- 								options="{'create': true ,'create_edit': true,'no_open':true}" colspan="4" /> -->
+<!-- 							<field name="equipment" colspan="4" /> -->
+<!-- 							<field name="certype_id" colspan="2" /><br/><br/> -->
+<!-- 						</group> -->
+<!-- 					</sheet> -->
+<!-- 				</form> -->
+<!-- 			</field> -->
+<!-- 		</record> -->
+
+
+		<!-- Search List View -->
+		<record model="ir.ui.view" id="view_nstda_ctf_list_search">
+			<field name="name">nstda.ctf.list.search</field>
+			<field name="model">nstda.ctf.list</field>
+			<field name="arch" type="xml">
+				<search string="List" create ='false'>
+<!-- 					<group expand="0" string="Group By..."> -->
+<!-- 						<filter name="cer_ids" string="มาตรฐาน" -->
+<!-- 							context="{'group_by':'cer_ids'}" /> -->
+<!-- 					</group> -->
+					<group expand="0" string="Search By...">
+						<field name="name" string="รายการทดสอบ" />
+						<field name="cer_ids" string="มาตรฐาน" />
+					</group>
+					<newline />
+				</search>
+			</field>
+		</record>
+
+		<!--List Form View -->
+		<record model="ir.ui.view" id="view_nstda_ctf_list_form">
+			<field name="name">nstda.ctf.list.form</field>
+			<field name="model">nstda.ctf.list</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="nstda_ctf_list_form">
+					<sheet>
+						<group>
+							<field name="name" string="รายการทดสอบ" />
+							<field name="standard" string="เกณฑ์" />
+							<field name="cer_ids" string="บนมาตรฐาน" widget="many2many_tags" readonly="1" />
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<!--List Tree View -->
+		<record model="ir.ui.view" id="view_nstda_ctf_list_tree">
+			<field name="name">nstda.ctf.list.tree</field>
+			<field name="model">nstda.ctf.list</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="nstda_ctf_list_tree">
+					<field name="name" string="รายการทดสอบ" />
+					<field name="standard" string="เกณฑ์" />
+				</tree>
+			</field>
+		</record>
+
+
+		<act_window id="action_nstda_ctf_cer_wizard"
+		            name="เพิ่มมาตรฐาน"
+		            res_model="nstda.ctf.cer.wizard"
+		            view_mode="form"
+		            target="new"
+		            key2="client_action_multi"/>
+
+		<!--Test_unit Form View -->
+		<record model="ir.ui.view" id="view_nstda_ctf_test_unti_form">
+			<field name="name">nstda.ctf.test.unit.form</field>
+			<field name="model">nstda.ctf.test.unit</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="nstda_ctf_test_unit_form" create='false'>
+					<sheet>
+						<group>
+							<field name="name" string="หน่วยงานทดสอบ"  />
+							<field name="address" string="ที่อยู่" />
+						</group>
+						<group col="4">
+							<field name="telephone" string="โทรศัพท์"/>
+							<field name="fax" string="โทรสาร"/>
+							<field name="e_mail" string="E-mail"/>
+							<field name="website"/>
+							<field name="service_individual" string="ให้บริการภายนอก"/>
+						</group>
+<!-- 						<group col="4"> -->
+<!-- 							<field name="contact_name" required="1"/> -->
+<!-- 							<field name="contact_email" required="1"/> -->
+<!-- 							<field name="contact_tel" required="1"/> -->
+<!-- 						</group> -->
+						<group col="4">
+							<field name="contact_ids" string="ผู้ติดต่อ" >
+							<tree editable="buttom">
+								<field name="name" />
+								<field name="email" />
+								<field name="tel" />
+							</tree>
+							</field>
+						</group>
+						
+						<group>
+							<field name="res_user" string="User" widget="many2many_tags" groups="base.group_nstda_ctf_admin"/>
+							<field name="contact_ok_flag" string="ผู้ติดต่อ" invisible="1" required="1" />								
+						</group>
+						
+
+						<button string="เพิ่มมาตรฐาน" type="action" name="%(action_nstda_ctf_cer_wizard)d" 
+						    class="oe_edit_only" />
+
+ 						<button name="create_other_list" string="เพิ่มรายการอื่นๆ" type="object"  
+ 							attrs="{'invisible': [('f_other_cer_invisible','=',True)]}" class="oe_edit_only" />
+
+ 							
+						<field name="testunit_ability_ids" nolabel="1" context="{'unit_id':id}">
+						<tree>
+							<field name="cer_state"/>
+							<field name="cer_id" string="มาตรฐานที่สามารถทดสอบ"/>
+							<field name="equipment" string="ผลิตภัณฑ์"/>
+							<field name="confirm"/>
+						</tree>
+						</field>
+
+						<field name="f_other_cer_invisible" invisible="1" />
+
+					</sheet>
+
+<div class="oe_single_form_footer">
+ปัญหาทางเทคนิค วิธีการกรอกข้อมูล -> ติดต่อ นายอดุลย์ศักดิ์ ศรีธิหล้า <a href="mailto:mstq@nstda.or.th">mstq@nstda.or.th</a>, โทร.0-2564-7000 ต่อ 1299<br/>
+ปัญหาอื่นๆ -&gt; ติดต่อ นายชรัฐ ตามไท <a href="mailto:charat@nstda.or.th">charat@nstda.or.th</a>, โทร.098 425 5363<br/>
+<a href="nstda_ctf/static/src/mstq.doc">Download คู่มือ</a><br/><br/>
+</div>
+
+
+				</form>
+			</field>
+		</record>
+
+		<!--Test unit Tree View -->
+		<record model="ir.ui.view" id="view_nstda_ctf_test_unti_tree">
+			<field name="name">nstda.ctf.test.unit.tree</field>
+			<field name="model">nstda.ctf.test.unit</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="nstda_ctf_test_unit_tree">
+					<field name="name" />
+				</tree>
+			</field>
+		</record>
+
+
+
+		<!-- Search Test unit admin View -->
+		<record model="ir.ui.view" id="view_nstda_ctf_test_unti_admin_search">
+			<field name="name">nstda.ctf.test.unit.admin.search</field>
+			<field name="model">nstda.ctf.test.unit</field>
+			<field name="arch" type="xml">
+				<search string="List" create ='false'>
+					<group expand="0" string="Search By...">
+						<field name="name" string="หน่วยทดสอบ" />					
+						<field name="res_user" string="User" />
+					</group>
+					<newline />
+				</search>
+			</field>
+		</record>
+
+		<!--Test unit admin Tree View -->
+		<record model="ir.ui.view" id="view_nstda_ctf_test_unti_admin_tree">
+			<field name="name">nstda.ctf.test.unit.admin.tree</field>
+			<field name="model">nstda.ctf.test.unit</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="nstda_ctf_test_unit_tree" editable="top">
+					<field name="name" />
+					<field name="telephone" string="โทรศัพท์"/>
+					<field name="fax" string="โทรสาร"/>
+					<field name="e_mail" string="E-mail"/>					
+					<field name="res_user" string="User" widget="many2many_tags"/>
+				</tree>
+			</field>
+		</record>
+	
+		<!--Test_unit Action admin -->
+		<record model="ir.actions.act_window" id="action_nstda_ctf_test_unit_admin">
+			<field name="name">หน่วยทดสอบ</field>
+			<field name="res_model">nstda.ctf.test.unit</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="limit">20</field>
+		</record>
+
+
+
+
+		<act_window id="action_nstda_ctf_list2_wizard"
+		            name="เพิ่มรายการ"
+		            res_model="nstda.ctf.list.wizard"
+		            view_mode="form"
+		            target="new"
+		            key2="client_action_multi"/>
+
+
+		<!--Ability Form View -->
+		<record model="ir.ui.view" id="view_nstda_ctf_testunit_ability_form">
+			<field name="name">nstda.ctf.testunit.ability.form</field>
+			<field name="model">nstda.ctf.testunit.ability</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form>
+					<sheet>
+						<group col="4">
+							<field name="cer_id" string="มาตรฐาน" colspan="4" 
+								attrs="{'readonly':[('id','!=',False)]}"
+								options="{ 'no_open': ['&amp;',('cer_state','=','confirm'),('id','!=',False)] }" 
+								domain="['|',('state','=','confirm'),('write_uid','=',uid)]" />
+							<field name="equipment" string="ผลิตภัณฑ์" colspan="4" />
+
+							<field name="products_test" colspan="4" />
+							<field name="test_capacity_per_m" />
+							<field name="test_service_per_m" />
+							<field name="confirm" required="1" />
+
+							<field name="certificat_save_flag" string="Upload certificate files." required="1" 
+								invisible="1"/>
+						</group>
+							
+							<group>
+							<field name="cerfile_ids" nolabel="1" colspan="4" >
+							<tree editable="bottom">
+								<field name="file" filename="file_filename" string="Certificate" />
+								<field name="file_filename" invisible="1" />
+							</tree>
+							</field>
+							</group>
+
+
+ 							 <button string="เพิ่มรายการ" type="action" name="%(action_nstda_ctf_list2_wizard)d" 
+ 							     attrs="{'invisible':[('cer_state','=','confirm')]}" class="oe_edit_only" />
+
+<!-- 							<field name="ability_line_ids" colspan="4" nolabel="1" > -->
+<!-- 							<tree editable="bottom" create="false" delete="false" > -->
+<!-- 								<field name="list_id" string="รายการทดสอบ" attrs="{'readonly':[('cer_state','=','confirm')]}"  -->
+<!-- 									options="{'no_quick_create':true,'no_create_edit':true, 'no_open':true }"  -->
+<!-- 									domain="[('write_uid','=',uid)]" /> -->
+<!-- 								<field name="standard" attrs="{'readonly':[('cer_state','=','confirm')]}" /> -->
+<!-- 								<field name="grade_ids" options='{"no_open": 1,"no_create": 1, "no_create_edit": 1}' /> -->
+<!-- 								<field name="comment" /> -->
+<!-- 								<field name="cer_state" invisible="1"/> -->
+<!-- 							</tree> -->
+<!-- 							</field> -->
+
+							<field name="ability_line_ids" colspan="4" nolabel="1" >
+							<tree editable="bottom" create="false" delete="false" >
+								<field name="list_id" string="รายการทดสอบ" attrs="{'readonly':[('cer_state','=','confirm')]}" 
+									options="{'no_quick_create':true,'no_create_edit':true, 'no_open':true }" 
+									domain="[('write_uid','=',uid)]" />
+								<field name="standard" attrs="{'readonly':[('cer_state','=','confirm')]}" />
+								<field name="grade_ids" options='{"no_open": 1,"no_create": 1, "no_create_edit": 1}' />
+								<field name="comment" />
+								<field name="cer_state" invisible="1"/>
+							</tree>
+							</field>
+
+
+							<field name="cer_state" invisible="1" />
+							<field name="id" invisible="1" />
+						
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+
+
+		<!--List Form View -->
+		<record model="ir.ui.view" id="view_nstda_ctf_list_wizard_form">
+			<field name="name">nstda.ctf.list.wizard.form</field>
+			<field name="model">nstda.ctf.list.wizard</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="nstda_ctf_list_wizard_form">
+					<group>
+						<field name="name" string="รายการทดสอบ" />
+						<field name="standard" string="เกณฑ์" />
+						<field name="cer_ids" string="บนมาตรฐาน" widget="many2many_tags" readonly="1" invisible="1" />
+					</group>
+                    <footer>
+                        <button string="Ok" name="create_list" type="object" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>						
+				</form>
+			</field>
+		</record>
+
+
+		<!--List Form View -->
+		<record model="ir.ui.view" id="view_nstda_ctf_cer_wizard_form">
+			<field name="name">nstda.ctf.cer.wizard.form</field>
+			<field name="model">nstda.ctf.cer.wizard</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="nstda_ctf_cer_wizard_form">
+					<group col="4">
+						<field name="standardcode" required="1" />
+						<field name="inter_flag" />
+						<field name="name" colspan="4" required="1" />
+						<field name="regulator_ids" 
+							options="{'create': true ,'create_edit': true,'no_open':true}" colspan="4" />
+						<field name="equipment" colspan="4" />
+						<field name="certype_id" colspan="2" /><br/><br/>
+					</group>
+                    <footer>
+                        <button string="Ok" name="create_list" type="object" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>						
+				</form>
+			</field>
+		</record>
+
+
+	</data>
+</openerp>
+
